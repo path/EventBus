@@ -34,7 +34,7 @@ import android.util.Log;
  * subscribers must register themselves to the bus using the {@link #register(Object)} method. Once registered,
  * subscribers receive events until the call of {@link #unregister(Object)}. By default, subscribers will handle events
  * in methods named "onEvent".
- * 
+ *
  * @author Markus Junginger, greenrobot
  */
 public final class EventBus {
@@ -135,7 +135,7 @@ public final class EventBus {
     /**
      * Registers the given subscriber to receive events. Subscribers must call {@link #unregister(Object)} once they are
      * no longer interested in receiving events.
-     * 
+     *
      * Subscribers have event handling methods that are identified by their name, typically called "onEvent". Event
      * handling methods must have exactly one parameter, the event. If the event handling method is to be called in a
      * specific thread, a modifier is appended to the method name. Valid modifiers match one of the {@link ThreadMode}
@@ -346,7 +346,7 @@ public final class EventBus {
 
     /**
      * Gets the most recent sticky event for the given type.
-     * 
+     *
      * @see #postSticky(Object)
      */
     public Object getStickyEvent(Class<?> eventType) {
@@ -357,7 +357,7 @@ public final class EventBus {
 
     /**
      * Remove and gets the recent sticky event for the given type.
-     * 
+     *
      * @see #postSticky(Object)
      */
     public Object removeStickyEvent(Class<?> eventType) {
@@ -368,7 +368,7 @@ public final class EventBus {
 
     /**
      * Removes the sticky event if it equals to the given event.
-     * 
+     *
      * @return true if the events matched and the sticky event was removed.
      */
     public boolean removeStickyEvent(Object event) {
