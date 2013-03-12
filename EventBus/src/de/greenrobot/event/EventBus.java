@@ -236,8 +236,9 @@ public final class EventBus {
         } else {
             for (Subscription subscription : subscriptions) {
                 if (subscription.equals(newSubscription)) {
-                    throw new EventBusException("Subscriber " + subscriber.getClass() + " already registered to event "
-                            + eventType);
+//                    throw new EventBusException("Subscriber " + subscriber.getClass() + " already registered to event "
+//                            + eventType);
+                    //ignore
                 }
             }
         }
