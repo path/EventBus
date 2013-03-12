@@ -404,7 +404,7 @@ public final class EventBus {
             }
         }
         if (!subscriptionFound) {
-            Log.d(TAG, "No subscripers registered for event " + eventClass);
+//            Log.d(TAG, "No subscripers registered for event " + eventClass);
             if (eventClass != NoSubscriberEvent.class && eventClass != SubscriberExceptionEvent.class) {
                 post(new NoSubscriberEvent(this, event));
             }
