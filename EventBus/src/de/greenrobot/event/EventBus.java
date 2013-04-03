@@ -311,6 +311,15 @@ public final class EventBus {
         }
     }
 
+    public void postOnMainThreadWithDelay(final Object event, long delayMillis) {
+        mainThreadPoster.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.this.post(event);
+            }
+        }, delayMillis);
+    }
+
     /** Posts the given event to the event bus. */
     public void post(Object event) {
         List<Object> eventQueue = currentThreadEventQueue.get();
