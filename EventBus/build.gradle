@@ -1,9 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 
-group = 'de.greenrobot'
-version = '2.0.2.1'
-sourceCompatibility = 1.6
 repositories {
     mavenCentral()
 }
@@ -64,8 +61,10 @@ uploadArchives {
                 authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
             }
             pom.project {
-               name 'EventBus'
-               packaging 'jar'
+               groupId = 'de.greenrobot'
+               artifactId= 'eventbus'
+               version = '2.0.2.3'
+                
                description 'EventBus is an Android optimized publish/subscribe event bus.'
                url 'https://plus.google.com/b/114381455741141514652/communities/114594359857596138845/stream/2f784373-19d9-4a0d-840f-787794a410bc'
 
