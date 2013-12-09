@@ -1,19 +1,11 @@
+import org.apache.tools.ant.taskdefs.Jar
+
 apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'signing'
 
 group = 'de.greenrobot'
-version = '2.0.2'
+version = '2.0.2.1'
 sourceCompatibility = 1.6
-
-def isSnapshot = version.endsWith('-SNAPSHOT')
-def sonatypeRepositoryUrl
-if(isSnapshot) {
-	sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-} else {
-	sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-}
-
 repositories {
     mavenCentral()
 }
@@ -63,28 +55,16 @@ artifacts {
     archives sourcesJar
 }
 
-signing {
-    if(project.hasProperty('signing.keyId') && project.hasProperty('signing.password') &&
-    project.hasProperty('signing.secretKeyRingFile')) {
-        sign configurations.archives
-    } else {
-        println "Signing information missing/incomplete for ${project.name}"
-    }
-}
-
 uploadArchives {
     repositories {
         mavenDeployer {
-            // We must check if authentication info is available
-            if(project.hasProperty('sonatypeUsername') && project.hasProperty('sonatypePassword')) {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-                repository(url: sonatypeRepositoryUrl) {
-                    authentication(userName: sonatypeUsername, password: sonatypePassword)
-                }
-            } else {
-                println "Settings sonatypeUsername/sonatypePassword missing/incomplete for ${project.name}"
+            snapshotRepository(url: project.ext["pathMaven.repo.snapshots"]) {
+                authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
             }
 
+            repository(url: project.ext["pathMaven.repo.releases"]) {
+                authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
+            }
             pom.project {
                name 'EventBus'
                packaging 'jar'
@@ -92,9 +72,9 @@ uploadArchives {
                url 'https://plus.google.com/b/114381455741141514652/communities/114594359857596138845/stream/2f784373-19d9-4a0d-840f-787794a410bc'
 
                scm {
-                   url 'https://github.com/greenrobot/EventBus'
-                   connection 'scm:git@github.com:greenrobot/EventBus.git'
-                   developerConnection 'scm:git@github.com:greenrobot/EventBus.git'
+                   url 'https://github.com/path/EventBus'
+                   connection 'scm:git@github.com:path/EventBus.git'
+                   developerConnection 'scm:git@github.com:path/EventBus.git'
                }
 
                licenses {
@@ -110,16 +90,6 @@ uploadArchives {
                        id 'greenrobot'
                        name 'greenrobot'
                    }
-               }
-               
-               issueManagement {
-                   system 'GitHub Issues'
-                   url 'https://github.com/greenrobot/EventBus/issues'
-               }
-               
-               organization {
-                   name 'greenrobot'
-                   url 'http://greenrobot.de'
                }
            }
         }
