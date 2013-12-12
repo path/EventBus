@@ -50,20 +50,27 @@ artifacts {
     archives sourcesJar
 }
 
+def deployToProd = hasProperty("pathMaven.deployToProd") && project.ext["pathMaven.deployToProd"].toBoolean()
+println "will deploy to prod?" + deployToProd
+
 uploadArchives {
     repositories {
         mavenDeployer {
-            snapshotRepository(url: project.ext["pathMaven.repo.snapshots"]) {
-                authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
-            }
+            if(deployToProd) {
+                snapshotRepository(url: project.ext["pathMaven.repo.snapshots"]) {
+                    authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
+                }
 
-            repository(url: project.ext["pathMaven.repo.releases"]) {
-                authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
+                repository(url: project.ext["pathMaven.repo.releases"]) {
+                    authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
+                }
+            } else {
+                repository(url: mavenLocal().getUrl())
             }
             pom.project {
                groupId = 'de.greenrobot'
                artifactId= 'eventbus'
-               version = '2.0.2.3'
+               version = '2.0.2.4'
                 
                description 'EventBus is an Android optimized publish/subscribe event bus.'
                url 'https://plus.google.com/b/114381455741141514652/communities/114594359857596138845/stream/2f784373-19d9-4a0d-840f-787794a410bc'
