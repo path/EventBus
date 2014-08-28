@@ -70,7 +70,7 @@ uploadArchives {
             pom.project {
                groupId = 'de.greenrobot'
                artifactId= 'eventbus'
-               version = '2.0.2.4'
+               version = '2.0.2.5'
                 
                description 'EventBus is an Android optimized publish/subscribe event bus.'
                url 'https://plus.google.com/b/114381455741141514652/communities/114594359857596138845/stream/2f784373-19d9-4a0d-840f-787794a410bc'

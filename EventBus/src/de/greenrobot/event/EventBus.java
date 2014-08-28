@@ -239,6 +239,8 @@ public final class EventBus {
 //                    throw new EventBusException("Subscriber " + subscriber.getClass() + " already registered to event "
 //                            + eventType);
                     //ignore
+                    Log.w(TAG, "Subscriber " + subscriber.getClass() + " already registered to event " + eventType);
+                    return;
                 }
             }
         }
